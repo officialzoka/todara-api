@@ -1,7 +1,7 @@
 const Todo = require("../models/Todo");
 const router = require("express").Router();
 
-// @route   GET api/v1/todo
+// @route   GET v1/todo
 router.get("/", async (req, res) => {
 	const todos = await Todo.find().select(["-__v"]);
 	if (!todos) {
@@ -18,7 +18,7 @@ router.get("/:id", async (req, res) => {
 });
 
 // create a new todo
-router.post("/new", async (req, res) => {
+router.post("/create", async (req, res) => {
 	if (!req.body) {
 		return res.status(404).json({ error: "No data provided" });
 	}
@@ -31,7 +31,7 @@ router.post("/new", async (req, res) => {
 });
 
 // update todo
-router.post("/edit", async (req, res) => {
+router.put("/update", async (req, res) => {
 	const todo = await Todo.findByIdAndUpdate(
 		{ _id: req.body.id },
 		{
@@ -49,7 +49,7 @@ router.post("/edit", async (req, res) => {
 });
 
 // delete todo
-router.post("/remove", async (req, res) => {
+router.delete("/remove", async (req, res) => {
 	const todo = await Todo.findByIdAndRemove({ _id: req.body.id });
 	if (!todo) return res.status(404).send("Todo not found");
 	res.status(200).json({ message: "Todo deleted" });
