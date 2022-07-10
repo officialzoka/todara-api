@@ -2,7 +2,10 @@
   "name": "backend",
   "version": "1.0.0",
   "description": "Node.js Todo Api With Mongo Database",
-  "repository": "https://github.com/officialzoka/nodejs-todo-api",
+  "repository": {
+    "url": "https://github.com/officialzoka/nodejs-todo-api",
+    "type": "git"
+  },
   "main": "index.js",
   "scripts": {
     "dev": "nodemon index.js",
