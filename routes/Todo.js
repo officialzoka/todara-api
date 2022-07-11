@@ -25,8 +25,7 @@ router.post("/create", async (req, res) => {
 	let todo = new Todo({
 		title: req.body.title,
 		description: req.body.description,
-		completed: req.body.complete || false,
-		popular: req.body.popular || false
+		popular: req.body.popular 
 	});
 	await todo.save();
 	res.status(200).json(todo);
