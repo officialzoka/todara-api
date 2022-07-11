@@ -15,7 +15,7 @@ const Todo = new schema({
 		type: Boolean,
 		default: false,
 	},
-	isPopular: {
+	popular: {
 		type: Boolean,
 		default: false,
 	},

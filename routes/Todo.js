@@ -3,7 +3,7 @@ const router = require("express").Router();
 
 // @route   GET v1/todo
 router.get("/", async (req, res) => {
-	const todos = await Todo.find().select(["-__v"]);
+	const todos = await Todo.find().select(["-__v"]).sort({ created: -1 });
 	if (!todos) {
 		return res.status(404).json({ error: "No todos found" });
 	}
@@ -25,6 +25,8 @@ router.post("/create", async (req, res) => {
 	let todo = new Todo({
 		title: req.body.title,
 		description: req.body.description,
+		completed: req.body.complete || false,
+		isPopular: req.body.isPopular || false
 	});
 	await todo.save();
 	res.status(200).json(todo);
@@ -49,8 +51,8 @@ router.put("/update", async (req, res) => {
 });
 
 // delete todo
-router.delete("/remove", async (req, res) => {
-	const todo = await Todo.findByIdAndRemove({ _id: req.body.id });
+router.delete("/remove/:id", async (req, res) => {
+	const todo = await Todo.findByIdAndRemove({ _id: req.params.id });
 	if (!todo) return res.status(404).send("Todo not found");
 	res.status(200).json({ message: "Todo deleted" });
 });
