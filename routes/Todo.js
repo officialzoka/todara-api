@@ -26,7 +26,7 @@ router.post("/create", async (req, res) => {
 		title: req.body.title,
 		description: req.body.description,
 		completed: req.body.complete || false,
-		isPopular: req.body.isPopular || false
+		popular: req.body.popular || false
 	});
 	await todo.save();
 	res.status(200).json(todo);
@@ -37,12 +37,7 @@ router.put("/update", async (req, res) => {
 	const todo = await Todo.findByIdAndUpdate(
 		{ _id: req.body.id },
 		{
-			$set: {
-				title: req.body.title,
-				description: req.body.description,
-				completed: req.body.completed,
-				isPopular: req.body.isPopular,
-			},
+			$set: req.body
 		},
 		{ new: true }
 	);
